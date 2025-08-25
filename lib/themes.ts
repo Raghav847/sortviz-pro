@@ -1,6 +1,6 @@
-import type { Theme } from '@/types';
+import type { Theme, ThemeKey } from '@/types';
 
-export const themes = {
+export const themes: Record<ThemeKey, Theme> = {
   dark: {
 	name: 'Dark',
 	bg: 'bg-gray-900',
@@ -66,7 +66,6 @@ export const themes = {
 	buttonSecondary: 'bg-emerald-100/80 hover:bg-emerald-200/80 border-emerald-300',
 	unsortedBar: 'from-emerald-400 to-emerald-600',
 	comparingBar: 'from-orange-400 to-orange-600',
-	sortedBar: 'from-teal-400 to-teal-600',
-	swappingBar: 'from-yellow-400 to-yellow-600'
+	sortedBar: 'from-teal-400 to-teal-600',    swappingBar: 'from-yellow-400 to-yellow-600'
   }
-} as const;
+};

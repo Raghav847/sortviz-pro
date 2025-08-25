@@ -2,7 +2,7 @@
 import React from 'react';
 import { BarChart3, Zap, Play, Shuffle, Settings } from 'lucide-react';
 import { algorithms } from '@/lib/algorithmsMeta';
-import type { AlgorithmKey } from '@/types';
+import type { AlgorithmKey, Theme } from '@/types';
 
 interface ControlPanelProps {
   algorithm: AlgorithmKey;
@@ -14,7 +14,7 @@ interface ControlPanelProps {
   sorting: boolean;
   startSorting: () => void;
   resetArray: () => void;
-  currentTheme: any;
+  currentTheme: Theme;
 }
 
 export function ControlPanel({

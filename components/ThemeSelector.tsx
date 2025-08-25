@@ -2,13 +2,12 @@
 import React from 'react';
 import { Palette } from 'lucide-react';
 import { themes } from '@/lib/themes';
-import type { ThemeKey } from '@/types';
-
+import type { ThemeKey, Theme } from '@/types';
 
 export function ThemeSelector({ theme, setTheme, currentTheme }: {
-theme: ThemeKey;
-setTheme: (k: ThemeKey) => void;
-currentTheme: any;
+  theme: ThemeKey;
+  setTheme: (k: ThemeKey) => void;
+  currentTheme: Theme;
 }) {
 return (
 <div className={`absolute top-16 right-0 z-50 ${currentTheme.glassEffect} rounded-xl p-4 shadow-2xl border min-w-48`}>

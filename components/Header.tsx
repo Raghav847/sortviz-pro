@@ -2,13 +2,12 @@
 import React from 'react';
 import { Settings } from 'lucide-react';
 import { ThemeSelector } from './ThemeSelector';
-import type { ThemeKey } from '@/types';
-
+import type { ThemeKey, Theme } from '@/types';
 
 export function Header({ theme, setTheme, currentTheme }: {
-theme: ThemeKey;
-setTheme: (k: ThemeKey) => void;
-currentTheme: any;
+  theme: ThemeKey;
+  setTheme: (k: ThemeKey) => void;
+  currentTheme: Theme;
 }) {
 const [showSettings, setShowSettings] = React.useState(false);
 return (

@@ -1,18 +1,18 @@
 'use client';
-
+import type { Theme } from '@/types';
 
 export function Visualizer({
-array,
-currentStep,
-sortedIndices,
-sorting,
-currentTheme
+  array,
+  currentStep,
+  sortedIndices,
+  sorting,
+  currentTheme
 }: {
-array: number[];
-currentStep: number[];
-sortedIndices: number[];
-sorting: boolean;
-currentTheme: any;
+  array: number[];
+  currentStep: number[];
+  sortedIndices: number[];
+  sorting: boolean;
+  currentTheme: Theme;
 }) {
 const getBarColor = (index: number) => {
 if (sortedIndices.includes(index)) return `bg-gradient-to-t ${currentTheme.sortedBar}`;

@@ -1,14 +1,13 @@
 'use client';
 import React from 'react';
 import { algorithms } from '@/lib/algorithmsMeta';
-import type { AlgorithmKey } from '@/types';
-
+import type { AlgorithmKey, Theme } from '@/types';
 
 export function StatsPanel({ algorithm, comparisons, swaps, currentTheme }: {
-algorithm: AlgorithmKey;
-comparisons: number;
-swaps: number;
-currentTheme: any;
+  algorithm: AlgorithmKey;
+  comparisons: number;
+  swaps: number;
+  currentTheme: Theme;
 }) {
 return (
 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">

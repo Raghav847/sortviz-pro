@@ -1,5 +1,3 @@
-import { sleep } from '@/lib/sleep';
-
 export type SortFn = (
   arr: number[],
   updateVisualization: (arr: number[], comparing?: number[], swapping?: number[], sorted?: number[]) => Promise<void>,

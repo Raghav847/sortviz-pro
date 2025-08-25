@@ -36,19 +36,17 @@ export default function Home() {
 
   useEffect(() => { 
     generateRandomArray(); 
-  }, [generateRandomArray]);
-
-  const updateVisualization = async (
+  }, [generateRandomArray]);  const updateVisualization = async (
     arr: number[],
     comparing: number[] = [],
-    swapping: number[] = [],
+    _swapping?: number[],
     sorted: number[] = []
   ) => {
     setArray([...arr]);
     setCurrentStep(comparing);
     setSortedIndices(prev => Array.from(new Set([...prev, ...sorted])));
     await sleep(101 - speed);
-    };
+  };
 
   const startSorting = async () => {
     if (sorting) return;
