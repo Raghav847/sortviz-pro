@@ -2,6 +2,8 @@
 
 A beautiful, interactive sorting algorithm visualizer built with Next.js 15, TypeScript, and Tailwind CSS. Watch sorting algorithms come to life with smooth animations, real-time statistics, and multiple theme options.
 
+👉 **[Live Demo](https://sortviz-pro-1qis.vercel.app/)** 
+
 ![Next.js](https://img.shields.io/badge/Next.js-15.5.0-black)
 ![React](https://img.shields.io/badge/React-19.1.0-blue)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue)
