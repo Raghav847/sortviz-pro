@@ -1,0 +1,72 @@
+import type { Theme } from '@/types';
+
+export const themes = {
+  dark: {
+	name: 'Dark',
+	bg: 'bg-gray-900',
+	cardBg: 'bg-gray-800/70',
+	text: 'text-gray-100',
+	textSecondary: 'text-gray-300',
+	textMuted: 'text-gray-400',
+	border: 'border-gray-700',
+	accent: 'from-blue-500 to-purple-600',
+	glassEffect: 'backdrop-blur-xl bg-gray-800/30 border-gray-700/50',
+	button: 'bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700',
+	buttonSecondary: 'bg-gray-700/50 hover:bg-gray-600/50 border-gray-600',
+	unsortedBar: 'from-blue-400 to-blue-600',
+	comparingBar: 'from-red-400 to-red-600',
+	sortedBar: 'from-green-400 to-green-600',
+	swappingBar: 'from-yellow-400 to-yellow-600'
+  },
+  light: {
+	name: 'Light',
+	bg: 'bg-gray-50',
+	cardBg: 'bg-white/70',
+	text: 'text-gray-900',
+	textSecondary: 'text-gray-700',
+	textMuted: 'text-gray-500',
+	border: 'border-gray-200',
+	accent: 'from-indigo-500 to-purple-600',
+	glassEffect: 'backdrop-blur-xl bg-white/40 border-white/20',
+	button: 'bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700',
+	buttonSecondary: 'bg-gray-100/80 hover:bg-gray-200/80 border-gray-300',
+	unsortedBar: 'from-indigo-400 to-indigo-600',
+	comparingBar: 'from-rose-400 to-rose-600',
+	sortedBar: 'from-emerald-400 to-emerald-600',
+	swappingBar: 'from-amber-400 to-amber-600'
+  },
+  cyber: {
+	name: 'Cyber',
+	bg: 'bg-black',
+	cardBg: 'bg-gray-900/50',
+	text: 'text-cyan-100',
+	textSecondary: 'text-cyan-200',
+	textMuted: 'text-cyan-400',
+	border: 'border-cyan-800',
+	accent: 'from-cyan-400 to-pink-500',
+	glassEffect: 'backdrop-blur-xl bg-gray-900/20 border-cyan-500/30',
+	button: 'bg-gradient-to-r from-cyan-400 to-pink-500 hover:from-cyan-500 hover:to-pink-600',
+	buttonSecondary: 'bg-cyan-900/30 hover:bg-cyan-800/40 border-cyan-500/50',
+	unsortedBar: 'from-cyan-400 to-cyan-600',
+	comparingBar: 'from-pink-400 to-pink-600',
+	sortedBar: 'from-green-400 to-green-600',
+	swappingBar: 'from-yellow-400 to-yellow-600'
+  },
+  nature: {
+	name: 'Nature',
+	bg: 'bg-emerald-50',
+	cardBg: 'bg-white/60',
+	text: 'text-emerald-900',
+	textSecondary: 'text-emerald-800',
+	textMuted: 'text-emerald-600',
+	border: 'border-emerald-200',
+	accent: 'from-emerald-500 to-teal-600',
+	glassEffect: 'backdrop-blur-xl bg-emerald-100/40 border-emerald-200/50',
+	button: 'bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700',
+	buttonSecondary: 'bg-emerald-100/80 hover:bg-emerald-200/80 border-emerald-300',
+	unsortedBar: 'from-emerald-400 to-emerald-600',
+	comparingBar: 'from-orange-400 to-orange-600',
+	sortedBar: 'from-teal-400 to-teal-600',
+	swappingBar: 'from-yellow-400 to-yellow-600'
+  }
+} as const;

@@ -1,103 +1,109 @@
-import Image from "next/image";
+'use client';
+import React, { useState, useCallback, useEffect } from 'react';
+import { Header } from '@/components/Header';
+import { ControlPanel } from '@/components/ControlPanel';
+import { StatsPanel } from '@/components/StatsPanel';
+import { Visualizer } from '@/components/Visualizer';
+import { sortingAlgorithms } from '@/lib/sorting';
+import { themes } from '@/lib/themes';
+import { sleep } from '@/lib/sleep';
+import type { AlgorithmKey, ThemeKey } from '@/types';
 
 export default function Home() {
-  return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const [array, setArray] = useState<number[]>([]);
+  const [algorithm, setAlgorithm] = useState<AlgorithmKey>('bubbleSort');
+  const [arraySize, setArraySize] = useState(50);
+  const [speed, setSpeed] = useState(50);
+  const [sorting, setSorting] = useState(false);
+  const [comparisons, setComparisons] = useState(0);
+  const [swaps, setSwaps] = useState(0);
+  const [currentStep, setCurrentStep] = useState<number[]>([]);
+  const [sortedIndices, setSortedIndices] = useState<number[]>([]);
+  const [theme, setTheme] = useState<ThemeKey>('dark');
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+  const currentTheme = themes[theme];
+
+  const generateRandomArray = useCallback(() => {
+    const newArray = Array.from({ length: arraySize }, () => 
+      Math.floor(Math.random() * 300) + 10
+    );
+    setArray(newArray);
+    setComparisons(0);
+    setSwaps(0);
+    setCurrentStep([]);
+    setSortedIndices([]);
+  }, [arraySize]);
+
+  useEffect(() => { 
+    generateRandomArray(); 
+  }, [generateRandomArray]);
+
+  const updateVisualization = async (
+    arr: number[],
+    comparing: number[] = [],
+    swapping: number[] = [],
+    sorted: number[] = []
+  ) => {
+    setArray([...arr]);
+    setCurrentStep(comparing);
+    setSortedIndices(prev => Array.from(new Set([...prev, ...sorted])));
+    await sleep(101 - speed);
+    };
+
+  const startSorting = async () => {
+    if (sorting) return;
+    setSorting(true);
+    setComparisons(0); 
+    setSwaps(0); 
+    setSortedIndices([]);
+    const copy = [...array];
+    try { 
+      await sortingAlgorithms[algorithm](copy, updateVisualization, setComparisons, setSwaps); 
+    }
+    catch (e) { 
+      console.error('Sorting interrupted:', e); 
+    }
+    setSorting(false); 
+    setCurrentStep([]);
+  };
+
+  const resetArray = () => { 
+    if (!sorting) generateRandomArray(); 
+  };
+
+  return (
+    <div className={`min-h-screen transition-all duration-500 ${currentTheme.bg} ${currentTheme.text}`}>
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className={`absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br ${currentTheme.accent} rounded-full opacity-10 blur-3xl animate-pulse`}></div>
+        <div className={`absolute -bottom-40 -left-40 w-80 h-80 bg-gradient-to-tr ${currentTheme.accent} rounded-full opacity-10 blur-3xl animate-pulse`} style={{ animationDelay: '2s' }}></div>
+      </div>
+
+      <div className="relative z-10 max-w-7xl mx-auto p-6">
+        <Header theme={theme} setTheme={setTheme} currentTheme={currentTheme} />
+
+        <ControlPanel
+          algorithm={algorithm}
+          setAlgorithm={setAlgorithm}
+          arraySize={arraySize}
+          setArraySize={setArraySize}
+          speed={speed}
+          setSpeed={setSpeed}
+          sorting={sorting}
+          startSorting={startSorting}
+          resetArray={resetArray}
+          currentTheme={currentTheme}
+        />
+
+        <StatsPanel algorithm={algorithm} comparisons={comparisons} swaps={swaps} currentTheme={currentTheme} />
+
+        <Visualizer
+          array={array}
+          currentStep={currentStep}
+          sortedIndices={sortedIndices}
+          sorting={sorting}
+          currentTheme={currentTheme}
+        />
+      </div>
     </div>
   );
 }
